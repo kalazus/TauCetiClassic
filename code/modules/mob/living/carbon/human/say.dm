@@ -179,15 +179,20 @@
 			if(mind && mind.changeling)
 				var/n_message = message
 				log_say("Changeling Mind: [mind.changeling.changelingID]/[mind.name]/[key] : [n_message]")
-				for(var/mob/Changeling in mob_list)
-					if(Changeling.mind && Changeling.mind.changeling)
-						to_chat(Changeling, "<span class='changeling'><b>[mind.changeling.changelingID]:</b> [n_message]</span>")
-						for(var/M in Changeling.mind.changeling.essences)
-							to_chat(M, "<span class='changeling'><b>[mind.changeling.changelingID]:</b> [n_message]</span>")
 
-					else if(isobserver(Changeling))
-						to_chat(Changeling, "<span class='changeling'><b>[mind.changeling.changelingID]:</b> [n_message]</span>")
+				var/rendered = "<span class='changeling'><b>[mind.changeling.changelingID]:</b> [n_message]</span>"
+				for(var/mob/M in mob_list)
+					if(M.mind && M.mind.M)
+						to_chat(M, rendered)
+
+						for(var/M in M.mind.changeling.essences)
+							to_chat(M, rendered)
+
+					else if(isobserver(M))
+						var/tracker = FOLLOW_LINK(M, src)
+						to_chat(M, "[tracker] [rendered]")
 			return
+		// Looks like old useless code 
 		if("alientalk")
 			if(mind && mind.changeling)
 				var/n_message = message
