@@ -7,4 +7,4 @@
 *.dmi merge=merge-dmi
 
 # line endings
-*.dm text eol=lf
+*.dm text eol=lf filter=tabspace
